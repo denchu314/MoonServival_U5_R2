@@ -70,7 +70,7 @@ public class InputManager : MonoBehaviour
 
                         //部屋判定
                         RoomManager.Instance.IdentifyRooms();
-                        RoomManager.Instance.UpdateTileTypeMapStringUI();
+                        //RoomManager.Instance.UpdateTileTypeMapStringUI();
                         
                     }
                     //selectedItem が建材タイプでないならば

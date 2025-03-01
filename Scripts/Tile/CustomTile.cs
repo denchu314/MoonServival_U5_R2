@@ -18,4 +18,7 @@ public class CustomTile : Tile
 
     // インスペクターで設定可能
     public CustomTileType tileType;
+
+    // このタイルの上を歩けるか？
+    public bool isWalkable = true;
 }

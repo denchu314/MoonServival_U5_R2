@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using UnityEngine.WSA;
 
 /// <summary>
 /// 2Dプレイヤーが WASD で移動するための簡単なスクリプト
@@ -7,6 +9,7 @@ using UnityEngine;
 public class PlayerController2D : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f; // 移動速度（インスペクタで変更可）
+    [SerializeField] private Tilemap tilemap;  // タイルマップをInspectorで設定
 
     private void Update()
     {
@@ -21,6 +24,18 @@ public class PlayerController2D : MonoBehaviour
         Vector3 move = moveDir * moveSpeed * Time.deltaTime;
 
         // Transform を直接動かす
-        transform.position += move;
+        //transform.position += move;
+        Vector3 nextPos = transform.position + move;
+        Vector3Int nextPosInt = new Vector3Int((int)nextPos.x, (int)nextPos.y, (int)nextPos.z);
+        CustomTile tile = tilemap.GetTile<CustomTile>(nextPosInt);
+        // タイルが存在し、かつ歩行可能なら移動
+        if (tile != null && tile.isWalkable)
+        {
+            transform.position = nextPos;
+        }
+        else
+        {
+            Debug.Log("このタイルには移動できません: " + (tile != null ? tile.tileType.ToString() : "なし"));
+        }
     }
 }
